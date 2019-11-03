@@ -22,8 +22,26 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     /*Creamos las siguientes variables*/
     CameraBridgeViewBase cameraBridgeViewBase;
     BaseLoaderCallback baseLoaderCallback;
-    //Creamos un contador
-    int counter = 0;
+    //Creamos un condicional si es que se activo el filtro canny
+    boolean startCanny = false;
+
+    public void Canny(View Button){
+
+        if (startCanny == false){
+            startCanny = true;
+        }
+
+        else{
+
+            startCanny = false;
+
+
+        }
+
+
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +75,12 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         //que los "frames" pasan rápido
         Mat frame = inputFrame.rgba();
 
-        if (counter % 2 == 0){
+        if (startCanny == true) {
 
-            Core.flip(frame, frame, 1);
             Imgproc.cvtColor(frame, frame, Imgproc.COLOR_RGBA2GRAY);
-
+            Imgproc.Canny(frame, frame, 100, 80);
 
         }
-
-        counter = counter + 1;
-
-
-
 
 
 
